@@ -2,6 +2,9 @@ package ec.com.models.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+
+import ec.com.models.entity.Admin;
 import jakarta.transaction.Transactional;
 public interface AdminDao extends JpaRepository<Admin, Long> {
 	// 保存処理と更新処理　insertとupdate
@@ -11,6 +14,7 @@ public interface AdminDao extends JpaRepository<Admin, Long> {
     // 用途：ログイン時に使用
     Admin findByAdminEmailAndDeleteFlg(String adminEmail, Integer deleteFlg);
     
+    Admin findByAdminEmailAndAdminPassword(String adminEmail, String adminPassword);
     // SELECT * FROM admin WHERE admin_id = ? AND delete_flg = 0
     // 用途：管理者情報の取得に使用
     Admin findByAdminIdAndDeleteFlg(Long adminId, Integer deleteFlg);
