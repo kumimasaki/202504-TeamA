@@ -1,0 +1,36 @@
+package ec.com.service;
+
+import java.time.OffsetDateTime;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import blog.com.model.entity.Users;
+import ec.com.model.entity.Admin;
+
+@Service
+public class AdminService {
+	@Autowired
+	private AdminDao adminDao;
+	public boolean createAccount(String adminName,String adminEmail , String adminPassword) {
+		// メールアドレスが未登録である場合に新規アカウント作成
+		if (adminDao.findByAdminEmail(adminEmail) == null) {
+			adminDao.save((adminName, adminEmail, adminPassword, 0, OffsetDateTime.now()));
+			return true;
+		} else {
+			// 同じメールアドレスが既に存在する場合は登録失敗
+			return false;
+		}
+	}
+
+           //ログインチェック処理
+	public Admin loginCheck(String accountEmail, String password) {
+		// メールアドレスとパスワードが一致するユーザーを検索
+		Admin admin = adminDao.findByAdminEmailAndPassword(adminEmail, adminPassword);
+		if (admin == null) {
+			return null;
+		} else {
+			return admin;
+		}
+	}
+}
