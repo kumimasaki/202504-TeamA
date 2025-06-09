@@ -10,25 +10,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
     <header>
         <div>
-            <h1><img src="/img/logo.png"></h1>
+            <h1><img th:src="@{/img/logo.png}"></h1>
             <p id="user_login">ID:suzuki@ac.jp</p>
         </div>
     </header>
     <article>
         <h2>ログイン</h2>
-        <form action="/user/login" method="post">
+        <form th:action="@{/user/login/process}" method="post">
             <table class="user_login_table">
                 <tr>
                     <th id="user_userid">メールアドレス</th>
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" name="studentEmail">
+                        <input type="text" name="userEmail">
                     </td>
                 </tr>
                 <tr>
@@ -36,7 +36,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" name="studentPassword">
+                        <input type="text" name="userPassword">
                     </td>
                 </tr>
                 <tr>

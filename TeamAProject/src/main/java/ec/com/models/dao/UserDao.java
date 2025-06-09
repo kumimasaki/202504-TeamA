@@ -13,7 +13,7 @@ public interface UserDao extends JpaRepository<Users, Long>{
 	
 	//メールアドレスでユーザーを検索用
 	//ユーザー登録時に重複チェック用
-	Users findByEmail(String userEmail);
+	Users findByUserEmail(String userEmail);
 	
 	//メールアドレスとパスワードでユーザーを検索用
 	//ログイン認証用
