@@ -24,14 +24,14 @@ public class Lesson {
 	private Integer lessonFee;
 	private String imageName;
 	private LocalDateTime registerDate;
-	private Admin admin;
+	
 	
 	// コンストラクタ
 	public Lesson() {
 	}
 
 	public Lesson(LocalDate startDate, LocalTime startTime, LocalTime finishTime, String lessonName,
-			String lessonDetail, Integer lessonFee, String imageName, LocalDateTime registerDate, Admin admin) {
+			String lessonDetail, Integer lessonFee, String imageName, LocalDateTime registerDate) {
 		this.startDate = startDate;
 		this.startTime = startTime;
 		this.finishTime = finishTime;
@@ -116,13 +116,7 @@ public class Lesson {
 		this.registerDate = registerDate;
 	}
 
-	public Admin getAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(Admin admin) {
-		this.admin = admin;
-	}
+	
 	
 	
 }
