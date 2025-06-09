@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-import ec.com.service.AdminService;
+
+import ec.com.services.AdminService;
+
+
 
 
 
@@ -36,7 +39,10 @@ public class AdminRegisterController {
 				return "admin_register";
 			}
 		}
+
+
 			@PostMapping("/admin/confirm/register")
+
 			public String adminRegisterConfirm(
 			        @RequestParam String adminName,
 			        @RequestParam String adminEmail,
@@ -48,7 +54,9 @@ public class AdminRegisterController {
 			    model.addAttribute("adminEmail", adminEmail);
 			    model.addAttribute("adminPassword", adminPassword); 
 
-			    return "register_confirm"; 
+
+			    return "admin_confirm_register"; 
 			
 		}
 }
+
