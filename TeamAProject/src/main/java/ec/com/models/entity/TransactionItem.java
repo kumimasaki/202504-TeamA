@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 
 @Entity
 public class TransactionItem {
@@ -12,18 +11,16 @@ public class TransactionItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@ManyToOne
-	private Lesson lesson;
-	@ManyToOne
-	private TransactionHistory transaction;
+	private Long lessonid;
+	private Long transactionId;
 
 	// コンストラクタ
 	public TransactionItem() {
 	}
 
-	public TransactionItem(Lesson lesson, TransactionHistory transaction) {
-		this.lesson = lesson;
-		this.transaction = transaction;
+	public TransactionItem(Long lessonid, Long transactionId) {
+		this.lessonid = lessonid;
+		this.transactionId = transactionId;
 	}
 
 	// getter,setter
@@ -35,20 +32,20 @@ public class TransactionItem {
 		this.id = id;
 	}
 
-	public Lesson getLesson() {
-		return lesson;
+	public Long getLessonid() {
+		return lessonid;
 	}
 
-	public void setLesson(Lesson lesson) {
-		this.lesson = lesson;
+	public void setLessonid(Long lessonid) {
+		this.lessonid = lessonid;
 	}
 
-	public TransactionHistory getTransaction() {
-		return transaction;
+	public Long getTransactionId() {
+		return transactionId;
 	}
 
-	public void setTransaction(TransactionHistory transaction) {
-		this.transaction = transaction;
+	public void setTransactionId(Long transactionId) {
+		this.transactionId = transactionId;
 	}
 
 }
