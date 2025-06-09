@@ -2,6 +2,8 @@ package ec.com.models.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import ec.com.models.entity.Admin;
 import jakarta.transaction.Transactional;
 public interface AdminDao extends JpaRepository<Admin, Long> {
 	// 保存処理と更新処理　insertとupdate

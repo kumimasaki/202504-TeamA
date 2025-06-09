@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ec.com.models.entity.Users;
+import ec.com.models.dao.AdminDao;
 import ec.com.models.entity.Admin;
 
 @Service
