@@ -24,8 +24,8 @@
 		</div>
 		<div th:if="${!loginFlg}">
 			<h1><img src="/img/logo.png"></h1>
-			<p id="mypage"><a th:href="/lesson/mypage">マイページ</a></p>
-			<p id="mypage"><a th:href="/user/login">ログイン</a></p>
+			<p id="mypage"><a th:href="@{/lesson/mypage}">マイページ</a></p>
+			<p id="mypage"><a th:href="@{/user/login}">ログイン</a></p>
 			<p text=logoutMessage style="color: white;"></p>
 		</div>
 	</header>

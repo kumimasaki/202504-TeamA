@@ -9,23 +9,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
   <header>
         <div th:if="${loginFlg}">
-             <h1><img src="/img/logo.png"></h1>
+             <h1><img th:src="@{/img/logo.png}"></h1>
              <p id="mypage"><a href="/lesson/mypage">マイページ</a></p>
-             <p id="user_register_6" style="color: white;" text="userName"></p>   
+             <p id="user_register_6" style="color: white;" th:text="${userName}"></p>   
         </div>
          <div th:if="${!loginFlg}">
-             <h1><img src="/img/logo.png"></h1>
+             <h1><img th:src="@{/img/logo.png}"></h1>
              <p id="mypage"><a href="/lesson/mypage">マイページ</a></p>   
         </div>
     </header>
    <article>
        <h2>申し込み予定講座</h2>
-           <button class="con_btn" onclick="location.href='/lesson/menu'">メニュー一覧</button>
+           <button class="con_btn" onclick="location.href='/user/menu'">メニュー一覧</button>
        <ul class="con">
            <li th:each="lesson:${list}">
                <img th:src="@{/lesson-image/{items}(items=${lesson.imageName})}">
