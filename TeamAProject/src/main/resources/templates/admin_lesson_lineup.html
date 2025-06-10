@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
 </head>
 <body>
    <header>
@@ -21,8 +21,8 @@
    <article>
        <h2>講座一覧</h2>
        <div class="lineup_btn">
-           <button onclick="location.href='/admin/lesson/register'">講座追加</button>
-           <button onclick="location.href='/admin/lesson/delete'">講座削除</button>
+           <button onclick="location.href='@{/admin/lesson/register}'">講座追加</button>
+           <button onclick="location.href='@{/admin/lesson/delete}'">講座削除</button>
        </div>
        <!-- table>tr>th*4^tr*3>td*4 -->
        <table class="lineup_table">
@@ -33,13 +33,13 @@
                <th>変更</th>
            </tr>
            <tr th:each="lesson:${lessonList}">
-               <td text="lesson.lessonId"></td>
-               <td text="lesson.lessonName"></td>
-               <td text="lesson.lessonFee"></td>
-               <td><button th:attr="onClick='location.href=\''+'/admin/lesson/edit/'+${lesson.lessonId}+'\''">変更</button></td>
+			<td th:text="${lesson.lessonId}"></td>
+			   <td th:text="${lesson.lessonName}"></td>
+			   <td th:text="${lesson.lessonFee}"></td>
+               <td><button th:attr="onClick='location.href=\''+'@{/admin/lesson/edit/{id}(id=${lesson.lessonId})}+'\''">変更</button></td>
            </tr>
        </table>
-       <button class="logout" onclick="location.href='/admin/logout'">ログアウト</button>
+       <button class="logout" onclick="location.href='@{/admin/logout}'">ログアウト</button>
    </article>
    <footer><small>Copyright &copy;  Academy All rights reserved.</small></footer>
 </body>
