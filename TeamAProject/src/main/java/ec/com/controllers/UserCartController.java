@@ -34,7 +34,7 @@ public class UserCartController {
 	        // レッスンIDリストからLessonオブジェクトのリストを取得する
 	        List<Lesson> lessonsInCart = lessonDao.findAllById(cart);
 
-	        model.addAttribute("lessonsInCart", lessonsInCart);
+	        model.addAttribute("list", lessonsInCart);
 	        Boolean loginFlg = (Boolean) session.getAttribute("loginFlg");
 	        if (loginFlg == null) {
 	            loginFlg = false;
