@@ -63,7 +63,7 @@ public class AdminLessonRegisterController {
 				e.printStackTrace();
 			}
 			// ブログをDBに登録
-			if (adminLessonService.createLesson(startDate, startTime,finishTime,lessonName,lessonDetail,lessonFee,fileName,registerDate,admin.getAdminId())) {
+			if (adminLessonService.createLesson(startDate, startTime,finishTime,lessonDetail,lessonName,lessonFee,fileName,registerDate,admin.getAdminId())) {
 				return "redirect:/admin/lesson/all";
 
 			} else {
