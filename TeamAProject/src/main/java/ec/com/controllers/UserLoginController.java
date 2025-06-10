@@ -36,7 +36,7 @@ public class UserLoginController {
 			return "redirect:/user/login?error";
 		} else {
 			// ログイン成功：セッションに保存し、講座一覧へリダイレクト
-			session.setAttribute("loginUserInfo", user);
+			session.setAttribute("loginUser", user);
 			return "redirect:/user/menu";
 		}
 	}
