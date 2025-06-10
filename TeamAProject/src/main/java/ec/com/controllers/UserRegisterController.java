@@ -36,7 +36,7 @@ public class UserRegisterController {
 		} else {
 			model.addAttribute("userName", userName);
 			model.addAttribute("userEmail", userEmail);
-			model.addAttribute("password", password);
+			model.addAttribute("userPassword", userPassword);
 			return "user_confirm_register.html";
 		}
 
@@ -44,8 +44,8 @@ public class UserRegisterController {
 
 	@PostMapping("/user/confirm/process")
 	public String createUser(@RequestParam String userName, @RequestParam String userEmail,
-			@RequestParam String password) {
-		if (userService.createUser(userName, userEmail, password)) {
+			@RequestParam String userPassword) {
+		if (userService.createUser(userName, userEmail, userPassword)) {
 			return "user_login.html";
 		} else {
 			return "user_register.html";

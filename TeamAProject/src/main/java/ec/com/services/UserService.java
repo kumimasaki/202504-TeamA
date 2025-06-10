@@ -30,8 +30,8 @@ public class UserService {
 	}
 
 	// ログイン処理
-	public Users loginCheck(String accountEmail, String password) {
-		Users account = userDao.findByUserEmailAndUserPassword(accountEmail, password);
+	public Users loginCheck(String userEmail, String userPassword) {
+		Users account = userDao.findByUserEmailAndUserPassword(userEmail, userPassword);
 		if (account == null) {
 			return null;
 		} else {
