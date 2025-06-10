@@ -24,7 +24,6 @@ public class Lesson {
 	private String imageName;
 	private LocalDateTime registerDate;
 	
-	
 	// コンストラクタ
 	public Lesson() {
 	}
