@@ -26,24 +26,24 @@ public class UserLoginController {
 
 	// ログイン処理
 	@PostMapping("/user/login/process")
-	public String userLoginProcess(@RequestParam String email, @RequestParam String password) {
+	public String userLoginProcess(@RequestParam String userEmail, @RequestParam String userPassword) {
 
 		// 入力されたメールアドレスとパスワードをチェック
-		Users user = userService.loginCheck(email, password);
+		Users user = userService.loginCheck(userEmail, userPassword);
 
 		// ユーザーが存在しない場合：エラー付きでログイン画面に戻る
 		if (user == null) {
 			return "redirect:/user/login?error";
+		} else {
+			// ログイン成功：セッションに保存し、講座一覧へリダイレクト
+			session.setAttribute("loginUserInfo", user);
+			return "redirect:/user/menu";
 		}
-
-		// ログイン成功：セッションに保存し、講座一覧へリダイレクト
-		session.setAttribute("loginUser", user);
-		return "redirect:/user/menu";
 	}
 
 	// ログアウト処理
-	@GetMapping("/lesson/menu/logout")
-	public String UserLogout() {
+	@GetMapping("/user/logout")
+	public String userLogout() {
 		session.invalidate();
 		return "redirect:/user/login";
 	}

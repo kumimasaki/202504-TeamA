@@ -29,9 +29,9 @@ public class AdminRegisterController {
 	    //ユーザー登録処理
 		@PostMapping("/admin/register/process")
 		public String adminRegisterProcess(@RequestParam String adminName, @RequestParam String adminEmail,
-				@RequestParam String adminpassword) {
+				@RequestParam String adminPassword) {
 			// ユーザー作成に成功した場合はログイン画面へリダイレクト
-			if (adminService.createAccount(adminEmail, adminName, adminpassword)) {
+			if (adminService.createAccount(adminEmail, adminName, adminPassword)) {
 				return "redirect:/admin/login";
 
 			} else {
