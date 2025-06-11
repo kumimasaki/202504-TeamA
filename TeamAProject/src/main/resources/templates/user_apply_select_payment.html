@@ -39,12 +39,12 @@
 					<p
 						th:text="${#temporals.format(lesson.startDate, 'yyyy/MM/dd')}+'('+${#temporals.dayOfWeekName(lesson.startDate)}+')'+${#temporals.format(lesson.startTime, 'HH:mm')}+'-'+${#temporals.format(lesson.finishTime, 'HH:mm')}">
 					</p>
-					<h3 text="lesson.lessonName"></h3>
+					<h3 th:text="${lesson.lessonName}"></h3>
 					<p id="apply_price1" th:text="${lesson.lessonFee +'円(税込)'}"></p>
 				</div>
 			</li>
 		</ul>
-		<form action="/lesson/confirm" method="post">
+		<form th:action="@{/lesson/confirm}" method="post">
 			<div class="pay">
 				<p id="pay_p">お支払い方法</p>
 				<div class="pay_li">
