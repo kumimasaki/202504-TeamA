@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>講座画像の変更</title>
+	<link rel="stylesheet" th:href="@{/css/reset.css}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+	<header>
+		<div>
+			<h1>講座管理</h1>
+			<p>ID: <span th:text="${adminName}"></span></p>
+		</div>
+	</header>
+
+	<article>
+		<h2>登録講座画像の変更</h2>
+		<div class="change">
+			<form action="/admin/lesson/image/edit/update" method="post" enctype="multipart/form-data">
+				<!-- 現在の画像 -->
+				<img th:src="@{/lesson-image/{img}(img=${lesson.imageName})}" alt="講座画像" style="max-width: 300px; max-height: 200px;">
+
+				<table class="change_table">
+					<tr>
+						<th>講座画像</th>
+						<td><input type="file" name="imageName" required></td>
+					</tr>
+				</table>
+
+				<!-- 隠しパラメータで lesson を送信 -->
+				<input type="hidden" name="lessonId" th:value="${lesson.lessonId}">
+				<input type="hidden" name="lessonName" th:value="${lesson.lessonName}">
+				<input type="hidden" name="lessonDetail" th:value="${lesson.lessonDetail}">
+				<input type="hidden" name="lessonFee" th:value="${lesson.lessonFee}">
+				<input type="hidden" name="startDate" th:value="${lesson.startDate}">
+				<input type="hidden" name="startTime" th:value="${lesson.startTime}">
+				<input type="hidden" name="finishTime" th:value="${lesson.finishTime}">
+
+				<div class="change-button">
+					<button id="return_btn" type="button" onclick="history.back();">戻る</button>
+					<button id="change_btn" type="submit">変更</button>
+				</div>
+			</form>
+		</div>
+	</article>
+
+	<footer>
+		<small>Copyright &copy; Akros Web & Business Design Academy All rights reserved.</small>
+	</footer>
+</body>
+
+</html>
