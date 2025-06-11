@@ -10,6 +10,7 @@ import java.time.LocalTime;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,9 +44,13 @@ public class AdminLessonRegisterController {
 
 	}
 	@PostMapping("/admin/lesson/register/create")
-	public String lessonRegisterProcess(@RequestParam LocalDate startDate, @RequestParam LocalTime startTime,
-			@RequestParam LocalTime finishTime, @RequestParam String lessonDetail,
-			@RequestParam String lessonName,@RequestParam Integer lessonFee,@RequestParam MultipartFile imageName) {
+	public String lessonRegisterProcess(@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+		    @RequestParam("startTime") @DateTimeFormat(pattern = "HH:mm") LocalTime startTime,
+		    @RequestParam("finishTime") @DateTimeFormat(pattern = "HH:mm") LocalTime finishTime,
+		    @RequestParam String lessonDetail,
+		    @RequestParam String lessonName,
+		    @RequestParam Integer lessonFee,
+		    @RequestParam MultipartFile imageName) {
 		 // セッションからログインユーザーを取得
 		Admin admin = (Admin) session.getAttribute("loginAdminInfo");
 		 // 未ログインならログイン画面へ

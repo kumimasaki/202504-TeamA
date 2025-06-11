@@ -50,7 +50,7 @@ public class AdminLessonService {
 		}
 		
 		public boolean lessonUpdate(LocalDate startDate, LocalTime startTime, LocalTime finishTime,String lessonDetail,
-				String lessonName, Integer lessonFee, String imageName, LocalDateTime registerDate,Long lessonId,Long adminId) {
+				String lessonName, Integer lessonFee, String imageName,LocalDateTime registerDate,Long lessonId,Long adminId) {
 			if (lessonId == null) {
 				return false;
 			} else {
