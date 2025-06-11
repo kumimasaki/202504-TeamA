@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -15,7 +16,8 @@ public class TransactionHistory {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long transactionId;
 	@ManyToOne
-	private Users userId;
+    @JoinColumn(name = "user_id") 
+    private Users user;
 	private Integer amount;
 	private LocalDateTime transactionDate;
 
@@ -23,8 +25,8 @@ public class TransactionHistory {
 	public TransactionHistory() {
 	}
 
-	public TransactionHistory(Users userId, Integer amount, LocalDateTime transactionDate) {
-		this.userId = userId;
+	public TransactionHistory(Users user, Integer amount, LocalDateTime transactionDate) {
+		this.user = user;
 		this.amount = amount;
 		this.transactionDate = transactionDate;
 	}
@@ -38,12 +40,12 @@ public class TransactionHistory {
 		this.transactionId = transactionId;
 	}
 
-	public Users getUserId() {
-		return userId;
+	public Users getUser() {
+		return user;
 	}
 
-	public void setUserId(Users userId) {
-		this.userId = userId;
+	public void setUser(Users user) {
+		this.user = user;
 	}
 
 	public Integer getAmount() {

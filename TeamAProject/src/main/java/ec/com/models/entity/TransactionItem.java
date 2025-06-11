@@ -1,51 +1,48 @@
 package ec.com.models.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class TransactionItem {
-	// transaction_itemの設定
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	private Long lessonid;
-	private Long transactionId;
 
-	// コンストラクタ
-	public TransactionItem() {
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	public TransactionItem(Long lessonid, Long transactionId) {
-		this.lessonid = lessonid;
-		this.transactionId = transactionId;
-	}
+    @ManyToOne
+    @JoinColumn(name = "lesson_id", nullable = false)  // 外键列名
+    private Lesson lesson;
 
-	// getter,setter
-	public Long getId() {
-		return id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "transaction_id", nullable = false)  // 外键列名
+    private TransactionHistory transactionHistory;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    // コンストラクタ
+    public TransactionItem() {}
 
-	public Long getLessonid() {
-		return lessonid;
-	}
+    public TransactionItem(Lesson lesson, TransactionHistory transactionHistory) {
+        this.lesson = lesson;
+        this.transactionHistory = transactionHistory;
+    }
 
-	public void setLessonid(Long lessonid) {
-		this.lessonid = lessonid;
-	}
+    // getter, setter
+    public Long getId() {
+        return id;
+    }
 
-	public Long getTransactionId() {
-		return transactionId;
-	}
+    public Lesson getLesson() {
+        return lesson;
+    }
 
-	public void setTransactionId(Long transactionId) {
-		this.transactionId = transactionId;
-	}
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
+    }
 
+    public TransactionHistory getTransactionHistory() {
+        return transactionHistory;
+    }
+
+    public void setTransactionHistory(TransactionHistory transactionHistory) {
+        this.transactionHistory = transactionHistory;
+    }
 }
