@@ -39,4 +39,19 @@ public class UserService {
 		}
 	}
 
+	// パスワードリセット
+	public Users findByUserEmail(String userEmail) {
+		return userDao.findByUserEmail(userEmail);
+	}
+
+	// パスワード更新
+	public void updatePassword(String userEmail, String newPassword) {
+		Users user = userDao.findByUserEmail(userEmail);
+		if (user != null) {
+			user.setUserPassword(newPassword);
+			// saveメソッドで保存
+			userDao.save(user);
+		}
+	}
+
 }
