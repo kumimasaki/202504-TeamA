@@ -23,13 +23,13 @@ public class Lesson {
 	private Integer lessonFee;
 	private String imageName;
 	private LocalDateTime registerDate;
-	
+	private Long adminId;
 	// コンストラクタ
 	public Lesson() {
 	}
 
 	public Lesson(LocalDate startDate, LocalTime startTime, LocalTime finishTime, String lessonName,
-			String lessonDetail, Integer lessonFee, String imageName, LocalDateTime registerDate) {
+			String lessonDetail, Integer lessonFee, String imageName, LocalDateTime registerDate,Long adminId) {
 		this.startDate = startDate;
 		this.startTime = startTime;
 		this.finishTime = finishTime;
@@ -38,9 +38,18 @@ public class Lesson {
 		this.lessonFee = lessonFee;
 		this.imageName = imageName;
 		this.registerDate = registerDate;
+		this.adminId = adminId;
 		
 	}
 	// getter,setter
+
+	public Long getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(Long adminId) {
+		this.adminId = adminId;
+	}
 
 	public Long getLessonId() {
 		return lessonId;

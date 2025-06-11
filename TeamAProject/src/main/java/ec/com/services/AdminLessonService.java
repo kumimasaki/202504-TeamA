@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import ec.com.models.dao.LessonDao;
 import ec.com.models.entity.Lesson;
 
@@ -32,11 +33,44 @@ public class AdminLessonService {
 		// タイトルが重複していない場合のみ保存
 		if (lessonDao.findByLessonName(lessonName) == null) {
 			lessonDao.save(new Lesson(startDate, startTime, finishTime, lessonName, lessonDetail, lessonFee, imageName,
-					registerDate));
+					registerDate,adminId));
 			return true;
 		} else {
 			return false;
 		}
 
 	}
+	
+		public Lesson lessonEditCheck(Long lessonId) {
+			if (lessonId == null) {
+				return null;
+			} else {
+				return lessonDao.findByLessonId(lessonId);
+			}
+		}
+		
+		public boolean lessonUpdate(LocalDate startDate, LocalTime startTime, LocalTime finishTime,String lessonDetail,
+				String lessonName, Integer lessonFee, String imageName, LocalDateTime registerDate,Long lessonId,Long adminId) {
+			if (lessonId == null) {
+				return false;
+			} else {
+				
+				Lesson lesson = lessonDao.findByLessonId(lessonId);
+				// 各項目を上書き
+				lesson.setLessonName(lessonName);
+				lesson.setLessonDetail(lessonDetail);
+				lesson.setStartDate(startDate);
+				lesson.setStartTime(startTime);
+				lesson.setFinishTime(finishTime);
+				lesson.setLessonFee(lessonFee);
+				if (imageName != null && !imageName.isBlank()) {
+					lesson.setImageName(imageName);
+				}
+				lesson.setAdminId(adminId);
+				// 更新を保存
+				lessonDao.save(lesson);
+				return true;
+			}
+
+		}
 }
