@@ -1,6 +1,8 @@
 package ec.com.controllers;
 
 import java.util.List;
+import java.time.LocalDate;
+import java.util.stream.Collectors;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,31 +18,37 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class UserMenuController {
 
-    @Autowired
-    private HttpSession session;
+	@Autowired
+	private HttpSession session;
 
-    @Autowired
-    private LessonDao lessonDao;
+	@Autowired
+	private LessonDao lessonDao;
 
-    @GetMapping("/user/menu")
-    public String showMenu(Model model) {
-        //ログイン判定
-        Users loginUser = (Users) session.getAttribute("loginUser");
-        boolean loginFlg = (loginUser != null);
-        model.addAttribute("loginFlg", loginFlg);
-        if (loginFlg) {
-            model.addAttribute("userName", loginUser.getUserName());
-        }
+	@GetMapping("/user/menu")
+	public String showMenu(Model model) {
+		// ログイン判定
+		Users loginUser = (Users) session.getAttribute("loginUser");
+		boolean loginFlg = (loginUser != null);
+		model.addAttribute("loginFlg", loginFlg);
+		if (loginFlg) {
+			model.addAttribute("userName", loginUser.getUserName());
+		}
 
-        //講座一覧
-        List<Lesson> lessonList;
-        try {
-            lessonList = lessonDao.findAllByOrderByStartDateAscStartTimeAsc();
-        } catch (Exception e) {
-            // DAOがまだ無い場合 画面だけ表示する
-            lessonList = Collections.emptyList();
-        }
-        model.addAttribute("lessonList", lessonList);
-        return "user_menu.html"; 
-    }
+		// 講座一覧
+		List<Lesson> lessonList;
+		try {
+			lessonList = lessonDao.findAllByOrderByStartDateAscStartTimeAsc();
+		} catch (Exception e) {
+			lessonList = Collections.emptyList();
+		}
+
+		// 開催日が今日より前はメニューに表示しない
+		LocalDate today = LocalDate.now();
+		lessonList = lessonList.stream().filter(l -> l.getStartDate() != null && !l.getStartDate().isBefore(today))
+				.collect(Collectors.toList());
+
+		// 画面に渡す
+		model.addAttribute("lessonList", lessonList);
+		return "user_menu.html";
+	}
 }

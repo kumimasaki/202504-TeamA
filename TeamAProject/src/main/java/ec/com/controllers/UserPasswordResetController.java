@@ -19,16 +19,16 @@ public class UserPasswordResetController {
 		return "user_password_reset.html";
 	}
 
-	//	入力されたメールアドレスの確認
+	// 入力されたメールアドレスの確認
 	@PostMapping("/password/reset/mail")
 	public String confirmMail(@RequestParam String userEmail, Model model) {
 
-		//	メールアドレス存在チェック
+		// メールアドレス存在チェック
 		if (userService.findByUserEmail(userEmail) == null) {
-			//	ユーザnull：?errorクエリを付けて入力画面へ戻す
+			// ユーザnull：?errorクエリを付けて入力画面へ戻す
 			return "redirect:/user/password/reset?error";
 		} else {
-			//	メール文字列をそのまま渡す
+			// メール文字列をそのまま渡す
 			model.addAttribute("userEmail", userEmail);
 			return "user_password_change.html";
 		}
@@ -41,10 +41,10 @@ public class UserPasswordResetController {
 
 		// 2回入力が一致チェック
 		if (!password.equals(passwordConfirm)) {
-			 //	一致しない：mismatch を付けてredirect
+			// 一致しない：mismatch を付けてredirect
 			return "redirect:/user/password/reset?mismatch";
 		} else {
-			//	一致：パスワード更新後、ログイン画面へ
+			// 一致：パスワード更新後、ログイン画面へ
 			userService.updatePassword(userEmail, password);
 			return "redirect:/user/login";
 		}
