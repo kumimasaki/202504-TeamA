@@ -2,17 +2,20 @@ package ec.com.models.entity;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "users")
 public class Users {
 	// userの設定
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long userId;
+    @Column(name = "user_id")
+    private Long userId;
 	private String userName;
 	private String userEmail;
 	private String userPassword;
