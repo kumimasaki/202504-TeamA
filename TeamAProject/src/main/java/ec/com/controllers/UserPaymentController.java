@@ -98,7 +98,14 @@ public class UserPaymentController {
 			payMethodText = "クレジットカード決済";
 			break;
 		}
-
+		// カートの中身を取得
+		List<Long> cart = (List<Long>) session.getAttribute("cart");
+		// カートにある講座IDから講座リストを取得
+		List<Lesson> list = lessonDao.findAllById(cart);
+		model.addAttribute("list", list);
+		// 合計金額を計算
+		int totalAmount = list.stream().mapToInt(Lesson::getLessonFee).sum();
+		model.addAttribute("amount", totalAmount);
 		model.addAttribute("payMethod", payMethodText);
 		model.addAttribute("payFlg", false); // 確認画面なので支払いはまだ完了していない
 
@@ -138,15 +145,15 @@ public class UserPaymentController {
 
 		// 各講座ごとに明細データを保存
 		for (Long lessonId : cart) {
-		    Optional<Lesson> lessonOpt = lessonDao.findById(lessonId);
-		    if (lessonOpt.isPresent()) {
-		        TransactionItem item = new TransactionItem();
-		        item.setLesson(lessonOpt.get());
-		        item.setTransactionHistory(transactionHistory); 
-		        transactionItemRepository.save(item);
-		    } else {
-		        System.out.println("講座がありません" + lessonId);
-		    }
+			Optional<Lesson> lessonOpt = lessonDao.findById(lessonId);
+			if (lessonOpt.isPresent()) {
+				TransactionItem item = new TransactionItem();
+				item.setLesson(lessonOpt.get());
+				item.setTransactionHistory(transactionHistory);
+				transactionItemRepository.save(item);
+			} else {
+				System.out.println("講座がありません" + lessonId);
+			}
 		}
 
 		// カートを空にする
