@@ -24,9 +24,9 @@
 	<article>
 		<h2>登録講座画像の変更</h2>
 		<div class="change">
-			<form action="/admin/lesson/image/edit/update" method="post" enctype="multipart/form-data">
+			<form th:action="@{/admin/lesson/edit/update}" method="post" enctype="multipart/form-data">
 				<!-- 現在の画像 -->
-				<img th:src="@{/lesson-image/{img}(img=${lesson.imageName})}" alt="講座画像" style="max-width: 300px; max-height: 200px;">
+				<img th:src="@{/images/{filename}(filename=${lesson.imageName})}" alt="講座画像" style="max-width: 300px; max-height: 200px;">
 
 				<table class="change_table">
 					<tr>

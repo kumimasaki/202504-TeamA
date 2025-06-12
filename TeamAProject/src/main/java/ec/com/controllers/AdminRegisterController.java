@@ -20,7 +20,7 @@ public class AdminRegisterController {
         return "admin_register";
     }
 
-    @PostMapping("/admin/confirm/register")
+    @PostMapping("/admin/register/process")
     public String adminRegisterConfirm(@RequestParam String adminName,
                                        @RequestParam String adminEmail,
                                        @RequestParam("password") String password,
@@ -40,14 +40,17 @@ public class AdminRegisterController {
             model.addAttribute("adminEmail", adminEmail);
             return "admin_register";
         }
+        
 
         model.addAttribute("adminName", adminName);
         model.addAttribute("adminEmail", adminEmail);
-        model.addAttribute("adminPassword", password); // 本番環境では非表示またはハッシュ化処理推奨
+        model.addAttribute("adminPassword", password); 
         return "admin_confirm_register";
+       
+        
     }
-
-    @PostMapping("/admin/register/complete")
+	
+    @PostMapping("/admin/confirm/process")
     public String adminRegisterComplete(@RequestParam String adminName,
                                         @RequestParam String adminEmail,
                                         @RequestParam("adminPassword") String password,
@@ -62,6 +65,6 @@ public class AdminRegisterController {
             return "admin_register";
         }
 
-        return "redirect:/admin/login";
+        return "admin_login";
     }
 }
