@@ -251,7 +251,16 @@ table, tr, th, td {
     margin: 10px 15px;
     padding-left: 1rem;
 }
-
+.login_table td input[type="password"] {
+    width: 370px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #fff;
+    box-shadow: 2px 2px 3px 0px gray inset;
+    vertical-align: baseline;
+    margin: 10px 15px;
+    padding-left: 1rem;
+}
 #login {
     background-color: #40CD82;
     height: 64px;
@@ -607,6 +616,16 @@ table, tr, th, td {
     padding-left: 1rem;
 }
 
+.user_login_table td input[type="password"] {
+    width: 370px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #fff;
+    box-shadow: 2px 2px 3px 0px gray inset;
+    vertical-align: baseline;
+    margin: 10px 15px;
+    padding-left: 1rem;
+}
 #user_userid, #user_password {
     height: 40px;
     line-height: 40px;
@@ -679,14 +698,19 @@ table, tr, th, td {
     padding-top: 30px;
 }
 
-.register_table td input[type="text"],
-.register_table td input[type="password"] {
+.register_table td input[type="text"] {
     width: 390px;
     background-color: #fff;
     box-shadow: 2px 2px 3px 0px gray inset;
     padding-left: 1rem;
 }
 
+.register_table td input[type="password"] {
+    width: 390px;
+    background-color: #fff;
+    box-shadow: 2px 2px 3px 0px gray inset;
+    padding-left: 1rem;
+}
 .register_btn {
     display: block;
     width: 190px;
@@ -736,7 +760,12 @@ table, tr, th, td {
     box-shadow: 2px 2px 3px 0px gray inset;
     padding-left: 1rem;
 }
-
+.register_2_table td input[type="password"] {
+    width: 390px;
+    background-color: #fff;
+    box-shadow: 2px 2px 3px 0px gray inset;
+    padding-left: 1rem;
+}
 #register_2_back {
     display: block;
     font-size: 18px;
