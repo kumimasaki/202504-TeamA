@@ -10,39 +10,38 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 	<header>
 		<div th:if="${loginFlg}">
-			<h1><img src="/img/logo.png"></h1>
+			<h1><img th:src="@{/img/logo.png}" alt="Logo"></h1>
 			<p id="mypage"><a href="/lesson/mypage">マイページ</a></p>
 			<p id="user_register_6" style="color: white;" th:text="${userName}"></p>
 		</div>
 		<div th:if="${!loginFlg}">
-			<h1><img src="/img/logo.png"></h1>
+			<h1><img src="/img/logo.png" alt="Logo"></h1>
 			<p id="mypage"><a href="/lesson/mypage">マイページ</a></p>
 		</div>
 	</header>
 	<article>
 		<h2>申込完了講座一覧</h2>
-		<button class="menu_btn" onclick="location.href='/lesson/menu'">メニュー一覧へ</button>
+		<button class="con_btn" onclick="location.href='/user/menu'">メニュー一覧</button>
 		<ul class="menu menu2">
-			<li th:each="lesson:${listSub}">
-				<a th:href="@{/lesson/detail/{lessonId}(lessonId=${lesson.lessonId})}">
-					<img th:src="@{/lesson-image/{items}(items=${lesson.imageName})}">
+			<li th:each="item : ${listSub}">
+				<a th:href="@{/lesson/detail/{lessonId}(lessonId=${item.lesson.lessonId})}">
+					<img th:src="@{/lesson-image/{items}(items=${item.lesson.imageName})}" alt="Lesson Image">
 					<p
-						th:text="${#temporals.format(lesson.startDate, 'yyyy/MM/dd')}+'('+${#temporals.dayOfWeekName(lesson.startDate)}+')'+${#temporals.format(lesson.startTime, 'HH:mm')}+'-'+${#temporals.format(lesson.finishTime, 'HH:mm')}">
+						th:text="${#temporals.format(item.lesson.startDate, 'yyyy/MM/dd')+'('+#temporals.dayOfWeekName(item.lesson.startDate)+')'+#temporals.format(item.lesson.startTime, 'HH:mm')+'-'+#temporals.format(item.lesson.finishTime, 'HH:mm')}">
 					</p>
-					<h3 th:text="${lesson.lessonName}"></h3>
-					<p id="description" th:text="${lesson.lessonDetail}"></p>
-					</p>
+					<h3 th:text="${item.lesson.lessonName}"></h3>
+					<p id="description" th:text="${item.lesson.lessonDetail}"></p>
 				</a>
-				<p id="price" th:text="${lesson.lessonFee}+'円（税込み）'"></p>
-				<p>購入日：[[${#temporals.format(lesson.transactionDate, 'yyyy/MM/dd')}]]</p>
+				<p id="price" th:text="${item.lesson.lessonFee}+'円（税込み）'"></p>
+				<p>購入日：[[${#temporals.format(item.transactionHistory.transactionDate, 'yyyy/MM/dd')}]]</p>
 				<form action="/lesson/history/delete" method="post">
-					<input type="hidden" name="transactionId" th:value="${lesson.transactionId}">
+					<input type="hidden" name="transactionId" th:value="${item.transactionHistory.transactionId}">
 					<button style="color: black;">削除</button>
 				</form>
 			</li>

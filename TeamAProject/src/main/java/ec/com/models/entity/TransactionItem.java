@@ -10,11 +10,11 @@ public class TransactionItem {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "lesson_id", nullable = false)  // 外键列名
+    @JoinColumn(name = "lesson_id", nullable = false) 
     private Lesson lesson;
 
     @ManyToOne
-    @JoinColumn(name = "transaction_id", nullable = false)  // 外键列名
+    @JoinColumn(name = "transaction_id", nullable = false) 
     private TransactionHistory transactionHistory;
 
     // コンストラクタ
