@@ -35,11 +35,15 @@ public class AdminLessonEditService {
             try {
                 // 新しいファイル名を生成
                 String originalFilename = imageName.getOriginalFilename();
-                String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+                String extension = "";
+                if (originalFilename != null && originalFilename.contains(".")) {
+                    extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+                }
+                
                 String newFilename = UUID.randomUUID().toString() + extension;
 
                 // 新しい画像を保存
-                Path uploadPath = Paths.get(UPLOAD_DIR);
+                Path uploadPath = Paths.get("images");
                 if (!Files.exists(uploadPath)) {
                     Files.createDirectories(uploadPath);
                 }
