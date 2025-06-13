@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,9 +63,10 @@ public class UserMyPageController {
 	}
 
 	@PostMapping("/lesson/history/delete")
-	public String deleteTransactionHistory(@RequestParam("transactionId") Long transactionId) {
-		// 指定された購入記録を削除する
-		transactionHistoryRepository.deleteById(transactionId);
-		return "redirect:/lesson/mypage";
+	@Transactional
+	public String deleteTransactionItem(@RequestParam("itemId") Long itemId) {
+	    transactionItemRepository.deleteById(itemId);
+	    return "redirect:/lesson/mypage";
 	}
+
 }
