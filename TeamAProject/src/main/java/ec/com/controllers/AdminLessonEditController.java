@@ -55,7 +55,7 @@ public class AdminLessonEditController {
             @RequestParam String lessonDetail,
             @RequestParam String lessonName,
             @RequestParam Integer lessonFee,
-            @RequestParam MultipartFile imageName,
+            @RequestParam(required = false) MultipartFile imageName,
             @RequestParam Long lessonId) {
 
         Admin admin = (Admin) session.getAttribute("loginAdminInfo");
