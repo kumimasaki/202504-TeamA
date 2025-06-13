@@ -28,7 +28,8 @@
     <article>
         <h2 th:text="${lesson.lessonName}">講座名</h2>
         <div class="lesson_details">
-            <img th:src="@{/images/{filename}(filename=${lesson.imageName})}" alt="講座画像" style="max-width: 300px; max-height: 200px;">
+			<img th:src="@{/images/{filename}(filename=${lesson.imageName})}" alt="講座画像" 
+			     style="width: 300px; height: 200px; object-fit: cover; display: block;">
             <table class="lesson_table">
                 <tr>
                     <th>開催日</th>
