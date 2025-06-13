@@ -14,6 +14,7 @@ import jakarta.persistence.Table;
 public class Users {
 	// userの設定
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private Long userId;
 	private String userName;
