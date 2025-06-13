@@ -45,6 +45,6 @@ public class UserLoginController {
 	@GetMapping("/user/logout")
 	public String userLogout() {
 		session.invalidate();
-		return "redirect:/user/login";
+		return "redirect:/user/menu";
 	}
 }

@@ -479,7 +479,12 @@ table, tr, th, td {
     box-shadow: 2px 2px 3px 0px gray inset;
     padding-left: 1rem;
 }
-
+.add_table td input[type="number"] {
+    width: 390px;
+    background-color: #fff;
+    box-shadow: 2px 2px 3px 0px gray inset;
+    padding-left: 1rem;
+}
 .add_table td input[type="date"] {
     width: 390px;
     background-color: #fff;
