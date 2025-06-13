@@ -17,7 +17,7 @@ public interface LessonDao extends JpaRepository<Lesson, Long> {
     // 用途：講座詳細の表示に使用
     Lesson findByLessonId(Long lessonId);
     
-    // SELECT * FROM lesson WHERE lesson_name = ?
+    // SELECT * FROM lesson WHERE lesson_name = ?	
     // 用途：講座名の重複チェックに使用
     Lesson findByLessonName(String lessonName);
     
@@ -27,5 +27,5 @@ public interface LessonDao extends JpaRepository<Lesson, Long> {
     
     // UPDATE lesson SET image_name = ? WHERE lesson_id = ?
     // 用途：講座画像の更新に使用
-    
+    	
 }
