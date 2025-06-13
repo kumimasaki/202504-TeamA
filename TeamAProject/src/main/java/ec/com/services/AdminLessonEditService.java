@@ -18,7 +18,7 @@ public class AdminLessonEditService {
     @Autowired
     private LessonDao lessonDao;
 
-    private final String UPLOAD_DIR = "src/main/resources/static/images/";
+   
 
     // 講座情報を取得する
     public Lesson getLessonById(Long lessonId) {

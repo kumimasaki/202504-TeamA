@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import ec.com.models.dao.LessonDao;
 import ec.com.models.entity.Lesson;
+import jakarta.transaction.Transactional;
 
 @Service
 public class AdminLessonService {
@@ -23,7 +24,7 @@ public class AdminLessonService {
     @Autowired
     private LessonDao lessonDao;
 
-    private final String UPLOAD_DIR = "src/main/resources/static/images/";
+    
 
     public List<Lesson> selectAllLessonList(Long adminId) {
         if (adminId == null) {
@@ -92,7 +93,7 @@ public class AdminLessonService {
         }
         return lessonDao.findByLessonId(lessonId);
     }
-
+    @Transactional
     public boolean deleteLesson(Long lessonId) {
         if (lessonId == null) {
             return false;
@@ -106,7 +107,7 @@ public class AdminLessonService {
         // 先尝试删除图片文件
         String imageName = lesson.getImageName();
         if (imageName != null && !imageName.isEmpty()) {
-            Path imagePath = Paths.get(UPLOAD_DIR, imageName);
+            Path imagePath = Paths.get("images",imageName);
             try {
                 if (Files.exists(imagePath)) {
                     Files.delete(imagePath);
@@ -131,12 +132,14 @@ public class AdminLessonService {
         if (file != null && !file.isEmpty()) {
             String imageName = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
                     + "-" + file.getOriginalFilename();
-            Path uploadPath = Paths.get(UPLOAD_DIR);
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
-            Files.copy(file.getInputStream(), uploadPath.resolve(imageName));
-            return imageName;
+            Path uploadPath = Paths.get("images");
+           
+              Files.createDirectories(uploadPath);
+            
+              Path filePath = uploadPath.resolve(imageName);
+              Files.copy(file.getInputStream(), filePath);
+
+              return imageName;
         }
         return null;
     }
