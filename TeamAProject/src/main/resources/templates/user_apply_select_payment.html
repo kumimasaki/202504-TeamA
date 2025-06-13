@@ -34,7 +34,8 @@
 		</ul>
 		<ul class="apply">
 			<li th:each="lesson:${list}">
-				<img th:src="@{/images/{filename}(filename=${lesson.imageName})}" alt="講座画像" style="max-width: 300px; max-height: 200px;">
+				<img th:src="@{/images/{filename}(filename=${lesson.imageName})}" alt="講座画像" 
+				     style="width: 300px; height: 200px; object-fit: cover; display: block;">
 				<div class="apply_p">
 					<p
 						th:text="${#temporals.format(lesson.startDate, 'yyyy/MM/dd')}+'('+${#temporals.dayOfWeekName(lesson.startDate)}+')'+${#temporals.format(lesson.startTime, 'HH:mm')}+'-'+${#temporals.format(lesson.finishTime, 'HH:mm')}">

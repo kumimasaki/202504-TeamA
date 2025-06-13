@@ -31,7 +31,9 @@
 		<ul class="menu menu2">
 			<li th:each="item : ${listSub}">
 				<a th:href="@{/lesson/detail/{lessonId}(lessonId=${item.lesson.lessonId})}">
-					<img th:src="@{/lesson-image/{items}(items=${item.lesson.imageName})}" alt="Lesson Image">
+					<img th:if="${item.lesson.imageName != null}"
+					     th:src="@{/images/{filename}(filename=${item.lesson.imageName})}" 
+					     alt="講座画像" style="width:300px; height:200px; object-fit: cover; display: block;">
 					<p
 						th:text="${#temporals.format(item.lesson.startDate, 'yyyy/MM/dd')+'('+#temporals.dayOfWeekName(item.lesson.startDate)+')'+#temporals.format(item.lesson.startTime, 'HH:mm')+'-'+#temporals.format(item.lesson.finishTime, 'HH:mm')}">
 					</p>
