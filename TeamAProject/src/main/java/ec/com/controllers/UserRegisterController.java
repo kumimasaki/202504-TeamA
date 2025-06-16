@@ -11,27 +11,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ec.com.services.UserService;
 
-
 @Controller
 public class UserRegisterController {
 	@Autowired
 	private UserService userService;
-	//登録画面を表示
+
+	// 登録画面を表示
 	@GetMapping("/user/register")
 	public String getUserRegisterPage() {
 		return "user_register.html";
 	}
-	//登録確認画面を表示
+
+	// 登録確認画面を表示
 	@GetMapping("/user/confirm")
 	public String confirmUserRegister() {
 		return "user_confirm_register.html";
 	}
+
 	// 登録処理
 	@PostMapping("/user/register/process")
 	public String userRegisterProcess(@RequestParam String userName, @RequestParam String userEmail,
 			@RequestParam String password, @RequestParam String userPassword, Model model) {
-		//ダブルチェック
+		// ダブルチェック
 		if (!password.equals(userPassword)) {
+			// エラーメッセージ
+			model.addAttribute("errorMessage", "パスワードが一致しません。");
+			model.addAttribute("userName", userName);
+			model.addAttribute("userEmail", userEmail);
 			return "user_register.html";
 		} else {
 			model.addAttribute("userName", userName);

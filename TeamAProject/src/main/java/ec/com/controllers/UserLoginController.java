@@ -2,6 +2,7 @@ package ec.com.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import ec.com.models.entity.Users;
@@ -20,7 +21,11 @@ public class UserLoginController {
 
 	// ログイン画面表示
 	@GetMapping("/user/login")
-	public String showLoginPage() {
+	public String showLoginPage(@RequestParam(required = false) String error, Model model) {
+		// error パラメータが存在する場合、エラーメッセージをモデルに追加
+		if (error != null) {
+			model.addAttribute("errorMessage", "メールアドレスまたはパスワードが正しくありません。");
+		}
 		return "user_login.html";
 	}
 
@@ -33,9 +38,10 @@ public class UserLoginController {
 
 		// ユーザーが存在しない場合：エラー付きでログイン画面に戻る
 		if (user == null) {
+			// エラーパラメータをクエリ文字列に付加してリダイレクト
 			return "redirect:/user/login?error";
 		} else {
-			// ログイン成功：セッションに保存し、講座一覧へリダイレクト
+			// ログイン成功：セッションにユーザー情報を保存し、メニュー画面へリダイレクト
 			session.setAttribute("loginUser", user);
 			return "redirect:/user/menu";
 		}
