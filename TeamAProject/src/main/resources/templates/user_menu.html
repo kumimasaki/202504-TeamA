@@ -30,8 +30,15 @@
 			<p text=logoutMessage style="color: white;"></p>
 		</div>
 	</header>
+
 	<article>
 		<h2>開催講座一覧</h2>
+		<div class="search">
+			<form action="#" th:action="@{/user/menu}" th:method="get">
+				<input type="text" class="search-input" th:name="keyword" placeholder="講座名を検索">
+				<button type="submit" class="search-button">検索</button>
+			</form>
+		</div>
 		<button class="menu_btn" onclick="location.href='/lesson/show/cart'">申し込み予定講座</button>
 		<ul class="menu">
 			<li th:each="lesson:${lessonList}"><a th:href="@{/lesson/detail/{lessonId}(lessonId=${lesson.lessonId})}">

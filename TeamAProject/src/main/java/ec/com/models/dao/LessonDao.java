@@ -28,4 +28,8 @@ public interface LessonDao extends JpaRepository<Lesson, Long> {
     // UPDATE lesson SET image_name = ? WHERE lesson_id = ?
     // 用途：講座画像の更新に使用
     	
+    
+  
+    //SELECT * FROM lesson WHERE lesson_name LIKE '%keyword%'
+    List<Lesson> findByLessonNameContainingIgnoreCase(String lessonName);
 }

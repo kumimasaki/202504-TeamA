@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ec.com.models.dao.LessonDao;
 import ec.com.models.entity.Lesson;
@@ -25,7 +26,7 @@ public class UserMenuController {
 	private LessonDao lessonDao;
 
 	@GetMapping("/user/menu")
-	public String showMenu(Model model) {
+	public String showMenu(Model model,@RequestParam(required = false) String keyword) {
 		// ログイン判定
 		Users loginUser = (Users) session.getAttribute("loginUser");
 		boolean loginFlg = (loginUser != null);
@@ -37,7 +38,12 @@ public class UserMenuController {
 		// 講座一覧
 		List<Lesson> lessonList;
 		try {
-			lessonList = lessonDao.findAllByOrderByStartDateAscStartTimeAsc();
+			 if (keyword != null && !keyword.trim().isEmpty()) {
+		            lessonList = lessonDao.findByLessonNameContainingIgnoreCase(keyword.trim());		            
+		            model.addAttribute("keyword", keyword.trim());
+		        } else {
+		            lessonList = lessonDao.findAllByOrderByStartDateAscStartTimeAsc();
+		        }
 		} catch (Exception e) {
 			lessonList = Collections.emptyList();
 		}
