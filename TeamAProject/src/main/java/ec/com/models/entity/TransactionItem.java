@@ -45,4 +45,5 @@ public class TransactionItem {
     public void setTransactionHistory(TransactionHistory transactionHistory) {
         this.transactionHistory = transactionHistory;
     }
+
 }
