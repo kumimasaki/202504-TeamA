@@ -72,7 +72,7 @@ public class UserPaymentController {
 
 	// 支払い確認画面（支払い方法の確認）
 	@PostMapping("/lesson/confirm")
-	public String payMentConfirm(HttpSession session, Model model, @RequestParam("payment") String paymentValue) {
+	public String payMentConfirm(HttpSession session, Model model, @RequestParam(value = "payment", required = false) String paymentValue) {
 		// ログインチェック
 		Users loginUser = (Users) session.getAttribute("loginUser");
 		boolean loginFlg = (loginUser != null);
@@ -84,7 +84,14 @@ public class UserPaymentController {
 		} else {
 			return "user_login.html";
 		}
-
+		if (paymentValue == null || paymentValue.isEmpty()) {
+			// カートの中身を取得
+			List<Long> cart = (List<Long>) session.getAttribute("cart");
+			// カートにある講座IDから講座リストを取得
+			List<Lesson> list = lessonDao.findAllById(cart);
+			model.addAttribute("list", list);
+		    return "user_apply_select_payment.html";
+		}else {
 		// 支払い方法を日本語で表示用に変換
 		String payMethodText = "";
 		switch (paymentValue) {
@@ -109,7 +116,7 @@ public class UserPaymentController {
 		model.addAttribute("payMethod", payMethodText);
 		model.addAttribute("payFlg", false); // 確認画面なので支払いはまだ完了していない
 
-		return "user_confirm_apply_detail.html";
+		return "user_confirm_apply_detail.html";}
 	}
 
 	// 支払い完了処理（購入データ保存）

@@ -34,8 +34,8 @@
 		</ul>
 		<ul class="apply">
 			<li th:each="lesson:${list}">
-				<img th:src="@{/images/{filename}(filename=${lesson.imageName})}" alt="講座画像" 
-				     style="width: 300px; height: 200px; object-fit: cover; display: block;">
+				<img th:src="@{/images/{filename}(filename=${lesson.imageName})}" alt="講座画像"
+					style="width: 300px; height: 200px; object-fit: cover; display: block;">
 				<div class="apply_p">
 					<p
 						th:text="${#temporals.format(lesson.startDate, 'yyyy/MM/dd')}+'('+${#temporals.dayOfWeekName(lesson.startDate)}+')'+${#temporals.format(lesson.startTime, 'HH:mm')}+'-'+${#temporals.format(lesson.finishTime, 'HH:mm')}">
@@ -54,16 +54,25 @@
 						<li><input type="radio" name="payment" value="1">事前銀行振込</li>
 						<li><input type="radio" name="payment" value="2">クレジットカード決済</li>
 					</ul>
-					<p>※お申込み後、登録メールアドレスへお支払い先を連絡いたします。</p>
 				</div>
 			</div>
 			<div class="apply-btn">
-			<button class="apply_2_back" onclick="history.back();" type="button">&lsaquo;&lsaquo;&nbsp;&nbsp;戻る</button>
-			<button class="apply_btn">申し込み内容確認</button>
+				<button class="apply_2_back" onclick="history.back();"
+					type="button">&lsaquo;&lsaquo;&nbsp;&nbsp;戻る</button>
+				<button class="apply_btn">申し込み内容確認</button>
 			</div>
-		</form>	
+		</form>
 	</article>
 	<footer><small>Copyright &copy; Academy All rights reserved.</small></footer>
 </body>
+<script>
+	document.querySelector("form").addEventListener("submit", function (e) {
+		const selected = document.querySelector('input[name="payment"]:checked');
+		if (!selected) {
+			e.preventDefault();
+			alert("※支払い方法を選択してください");
+		}
+	});
+</script>
 
 </html>
