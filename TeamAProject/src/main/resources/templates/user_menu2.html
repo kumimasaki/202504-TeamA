@@ -51,17 +51,10 @@
 					<p id="description" th:text="${lesson.lessonDetail}">
 					</p>
 				</a>
-				<div th:if="${loginFlg}">
-					<button type="button" th:attr="data-lesson-id=${lesson.lessonId}"
-						th:classappend="${#lists.contains(bookmarkedIds, lesson.lessonId)} ? 'bookmark-added' : 'bookmark-not-added'"
-						onclick="toggleBookmark(this)">
-						<span th:text="${#lists.contains(bookmarkedIds, lesson.lessonId)} ? '❤️ 已收藏' : '🤍 收藏'"></span>
-					</button>
-				</div>
 
 				<form action="/lesson/cart/all" method="post">
 					<div class="cart">
-						<p id="price" th:text="${lesson.lessonFee}+'円（税込み）'"></p>
+						<p id="price" th:text="${#numbers.formatInteger(lesson.lessonFee, 3, 'COMMA') + '円(税込)'}"></p>
 						<input type="hidden" th:value="${lesson.lessonId}" name="lessonId">
 						<button>カートに追加</button>
 					</div>
@@ -72,34 +65,6 @@
 	</article>
 	<footer><small>Copyright &copy; Academy All rights reserved.</small></footer>
 </body>
-<script>
-	function toggleBookmark(btn) {
-		const lessonId = btn.getAttribute('data-lesson-id');
-		fetch('/lesson/bookmark/toggle?lessonId=' + lessonId, {
-			method: 'POST',
-			credentials: 'include'
-		})
-			.then(response => {
-				if (response.status === 401) {
-					alert("まずログインしてください。その後、ブックマーク操作を行ってください。");
-					return;
-				}
-				return response.text();
-			})
-			.then(result => {
-				if (!result) return;
-				if (result === 'added') {
-					btn.classList.remove('bookmark-not-added');
-					btn.classList.add('bookmark-added');
-					btn.querySelector('span').innerText = '❤️ お気に入り済み';
-				} else if (result === 'removed') {
-					btn.classList.remove('bookmark-added');
-					btn.classList.add('bookmark-not-added');
-					btn.querySelector('span').innerText = '🤍 お気に入りに追加';
-				}
-			})
-			.catch(error => console.error('Error:', error));
-	}
-</script>
+
 
 </html>
