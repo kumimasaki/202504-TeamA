@@ -14,7 +14,7 @@
 <body>
    <header>
        <div>
-		<h1><img th:src="@{/img/logo.png}" alt="サイトロゴ"></h1>
+		<h1><img th:src="@{/images/logo.png}" alt="サイトロゴ"></h1>
 			<p th:text="${adminName}"></p>
   
        </div>
@@ -40,7 +40,7 @@
            <tr th:each="lesson:${lessonList}">
 			<td th:text="${lesson.lessonId}"></td>
 			   <td th:text="${lesson.lessonName}"></td>
-			   <td th:text="${lesson.lessonFee}"></td>
+			   <td th:text="${#numbers.formatInteger(lesson.lessonFee, 3, 'COMMA')}"></td>
 			   <td>
 			     <a th:href="@{/admin/lesson/edit/{id}(id=${lesson.lessonId})}">
 			       <button type="button">変更</button>

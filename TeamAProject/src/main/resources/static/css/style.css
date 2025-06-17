@@ -1013,7 +1013,37 @@ table, tr, th, td {
     margin: 5px 0 20px 22px;
     background-color: #F59923;
 }
+.search{
+    padding: 15px 0;
+    text-align: center;
+}
 
+.search form {
+    display: inline-block;
+    position: relative;
+}
+
+.search input[type="text"] {
+    padding: 8px 15px;
+    padding-right: 40px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 350px;
+	height: 40px;
+}
+
+.search .search-button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #F59923;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
 /* user_confirm */
 #user_confirm {
     display: none;
