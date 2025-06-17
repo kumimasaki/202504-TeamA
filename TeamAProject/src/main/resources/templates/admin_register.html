@@ -16,7 +16,7 @@
 <body>
     <header>
         <div>
-            <h1><img th:src="@{/img/logo.png}" alt="サイトロゴ"></h1>
+            <h1><img th:src="@{/images/logo.png}" alt="サイトロゴ"></h1>
         </div>
     </header>
     <article>
@@ -51,7 +51,13 @@
                 </table>
             </div>
             <button type="submit" class="register_btn">確認画面へ</button>
+			<div style="text-align: center; margin-top: 10px;">
+			    <a th:href="@{/admin/login}" style="color: #333; text-decoration: none;">
+			        ログインは <span style="color: blue;">こちら</span>
+			    </a>
+			</div>
         </form>
+         
     </article>
     <footer><small>Copyright &copy; Academy All rights reserved.</small></footer>
 </body>
