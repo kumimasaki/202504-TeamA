@@ -61,7 +61,7 @@
 
 				<form action="/lesson/cart/all" method="post">
 					<div class="cart">
-						<p id="price" th:text="${lesson.lessonFee}+'円（税込み）'"></p>
+						<p id="price" th:text="${#numbers.formatInteger(lesson.lessonFee, 3, 'COMMA') + '円(税込)'}"></p>
 						<input type="hidden" th:value="${lesson.lessonId}" name="lessonId">
 						<button>カートに追加</button>
 					</div>
@@ -101,5 +101,6 @@
 			.catch(error => console.error('Error:', error));
 	}
 </script>
+
 
 </html>
