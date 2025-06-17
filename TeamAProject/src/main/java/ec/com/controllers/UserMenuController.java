@@ -26,7 +26,7 @@ public class UserMenuController {
 	private LessonDao lessonDao;
 
 	@GetMapping("/user/menu")
-	public String showMenu(Model model, @RequestParam(required = false) String keyword) {
+	public String showMenu(Model model,@RequestParam(required = false) String keyword) {
 		// ログイン判定
 		Users loginUser = (Users) session.getAttribute("loginUser");
 		boolean loginFlg = (loginUser != null);
@@ -38,12 +38,12 @@ public class UserMenuController {
 		// 講座一覧
 		List<Lesson> lessonList;
 		try {
-			if (keyword != null && !keyword.trim().isEmpty()) {
-				lessonList = lessonDao.findByLessonNameContainingIgnoreCase(keyword.trim());
-				model.addAttribute("keyword", keyword.trim());
-			} else {
-				lessonList = lessonDao.findAllByOrderByStartDateAscStartTimeAsc();
-			}
+			 if (keyword != null && !keyword.trim().isEmpty()) {
+		            lessonList = lessonDao.findByLessonNameContainingIgnoreCase(keyword.trim());		            
+		            model.addAttribute("keyword", keyword.trim());
+		        } else {
+		            lessonList = lessonDao.findAllByOrderByStartDateAscStartTimeAsc();
+		        }
 		} catch (Exception e) {
 			lessonList = Collections.emptyList();
 		}
