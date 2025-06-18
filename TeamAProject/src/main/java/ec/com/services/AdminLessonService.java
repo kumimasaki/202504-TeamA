@@ -150,4 +150,8 @@ public class AdminLessonService {
 	public List<Lesson> searchLessonsByName(Long adminId, String keyword) {
 	    return lessonDao.findByAdminIdAndLessonNameContaining(adminId, keyword);
 	}
+	// idに基づいて講座を取得する
+		public Optional<Lesson> getLessonById(Long id) {
+	        return lessonDao.findById(id);
+	    }
 }
