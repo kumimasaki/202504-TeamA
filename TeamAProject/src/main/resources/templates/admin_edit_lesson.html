@@ -64,16 +64,9 @@
 					<tr>
 						<th>受講料</th>
 						<td>
-							<input type="text" name="lessonFee" id="lessonFee" required oninput="formatNumber(this)" />
+							<input type="text" name="lessonFee" id="lessonFee" required  />
 
-							<script>
-							function formatNumber(el) {
-							    let value = el.value.replace(/,/g, ''); // 先去除已有逗号
-							    if (!isNaN(value) && value !== '') {
-							        el.value = Number(value).toLocaleString(); // 格式化为带逗号的字符串
-							    }
-							}
-							</script>
+							
 						</td>
 					</tr>
 				</table>

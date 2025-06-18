@@ -18,9 +18,44 @@
 			<p th:text="${adminName}"></p>
   
        </div>
+	   <style>
+	   .search-form {
+	       display: flex;
+	       justify-content: center;
+	       align-items: center;
+	       margin: 20px 0;
+	       gap: 10px;
+	   }
+
+	   .search-form input[type="text"] {
+	       padding: 8px;
+	       width: 250px;
+	       font-size: 1rem;
+	       border: 1px solid #ccc;
+	       border-radius: 4px;
+	   }
+
+	   .search-form button {
+	       padding: 8px 16px;
+	       font-size: 1rem;
+	       background-color: #1976d2;
+	       color: white;
+	       border: none;
+	       border-radius: 4px;
+	       cursor: pointer;
+	   }
+
+	   .search-form button:hover {
+	       background-color: #1565c0;
+	   }
+	   </style>
    </header>
    <article>
        <h2>講座一覧</h2>
+	   <form th:action="@{/admin/lesson/search}" method="get" class="search-form">
+	       <input type="text" name="keyword" placeholder="講座名で検索" th:value="${keyword}" />
+	       <button type="submit">検索</button>
+	   </form>
        <div class="lineup_btn">
 		<a th:href="@{/admin/lesson/register}">
 		    <button type="button">講座追加</button>

@@ -35,13 +35,13 @@ public class AdminLessonEditImageController {
         if (admin == null) {
             return "redirect:/admin/login";
         }
-        
+        // 対象のレッスン情報を取得してモデルに追加
         Lesson lesson = adminLessonEditService.getLessonById(lessonId);
         model.addAttribute("lesson", lesson);
         model.addAttribute("adminName", admin.getAdminName());
         return "admin_edit_lesson_img";
     }
-
+       // レッスン画像の更新処理
     @PostMapping("/image/edit/update")
     public String updateLessonImage(
         @RequestParam("imageName") MultipartFile imageFile,
@@ -53,11 +53,12 @@ public class AdminLessonEditImageController {
         @RequestParam("startTime") LocalTime startTime,
         @RequestParam("finishTime") LocalTime finishTime
     ) {
+    	// ログイン中の管理者をセッションから取得
         Admin admin = (Admin) session.getAttribute("loginAdminInfo");
         if (admin == null) {
             return "redirect:/admin/login";
         }
-
+        // レッスン情報をオブジェクトに設定
         Lesson lesson = new Lesson();
         lesson.setLessonId(lessonId);
         lesson.setLessonName(lessonName);
@@ -66,7 +67,7 @@ public class AdminLessonEditImageController {
         lesson.setStartDate(startDate);
         lesson.setStartTime(startTime);
         lesson.setFinishTime(finishTime);
-
+        // サービスで画像を更新、成功すれば編集ページへリダイレクト、失敗すれば同じページに戻る
         if (adminLessonEditService.updateLessonImage(imageFile, lesson)) {
         	 return "redirect:/admin/lesson/edit/" + lessonId;
         } else {

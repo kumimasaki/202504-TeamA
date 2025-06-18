@@ -32,4 +32,6 @@ public interface LessonDao extends JpaRepository<Lesson, Long> {
   
     //SELECT * FROM lesson WHERE lesson_name LIKE '%keyword%'
     List<Lesson> findByLessonNameContainingIgnoreCase(String lessonName);
+  //SELECT * FROM lesson WHERE lesson_name LIKE '%keyword%' AND admin_id = ?
+    List<Lesson> findByAdminIdAndLessonNameContaining(Long adminId, String keyword);
 }
