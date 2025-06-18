@@ -3,6 +3,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import ec.com.models.entity.Comment;
 import ec.com.models.entity.Lesson;
 import jakarta.transaction.Transactional;
 public interface LessonDao extends JpaRepository<Lesson, Long> {

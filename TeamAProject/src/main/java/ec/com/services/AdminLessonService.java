@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -140,4 +141,8 @@ public class AdminLessonService {
 		}
 		return null;
 	}
+	// idに基づいて講座を取得する
+	public Optional<Lesson> getLessonById(Long id) {
+        return lessonDao.findById(id);
+    }
 }
