@@ -141,8 +141,4 @@ public class AdminLessonService {
 		}
 		return null;
 	}
-	// idに基づいて講座を取得する
-	public Optional<Lesson> getLessonById(Long id) {
-        return lessonDao.findById(id);
-    }
 }
