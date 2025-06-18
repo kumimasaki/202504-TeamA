@@ -65,16 +65,9 @@
 					<tr>
 						<th>受講料</th>
 						<td>
-							<input type="text" name="lessonFee" id="lessonFee" required oninput="formatNumber(this)" />
+							<input type="text" name="lessonFee" id="lessonFee" required  />
 
-							<script>
-							function formatNumber(el) {
-							    let value = el.value.replace(/,/g, ''); 
-							    if (!isNaN(value) && value !== '') {
-							        el.value = Number(value).toLocaleString(); 
-							    }
-							}
-							</script>
+							
 						</td>
 					</tr>
 					

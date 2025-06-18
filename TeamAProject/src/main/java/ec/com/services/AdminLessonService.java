@@ -23,7 +23,7 @@ public class AdminLessonService {
 
 	@Autowired
 	private LessonDao lessonDao;
-
+	// 管理者に関連する全レッスンを取得
 	public List<Lesson> selectAllLessonList(Long adminId) {
 		if (adminId == null) {
 			return null;
@@ -31,35 +31,38 @@ public class AdminLessonService {
 			return lessonDao.findAll();
 		}
 	}
-
+	// レッスン新規登録処理
 	public boolean createLesson(LocalDate startDate, LocalTime startTime, LocalTime finishTime, String lessonDetail,
 			String lessonName, Integer lessonFee, MultipartFile imageFile, LocalDateTime registerDate, Long adminId) {
+		 // 同名レッスンが既に存在する場合、登録不可
 		if (lessonDao.findByLessonName(lessonName) != null) {
 			return false;
 		}
 
 		String imageName = null;
 		try {
+		 // 画像を保存して、保存されたファイル名を取得
 			imageName = saveImage(imageFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
 		}
-
+		  // レッスン情報を組み立てて保存
 		Lesson lesson = new Lesson(startDate, startTime, finishTime, lessonName, lessonDetail, lessonFee, imageName,
 				registerDate, adminId);
 		lessonDao.save(lesson);
 		return true;
 	}
-
+	// レッスン情報の更新処理
 	public boolean lessonUpdate(LocalDate startDate, LocalTime startTime, LocalTime finishTime, String lessonDetail,
 			String lessonName, Integer lessonFee, MultipartFile imageFile, LocalDateTime registerDate, Long lessonId,
 			Long adminId) {
 		if (lessonId == null) {
 			return false;
 		}
-
+		// 更新対象レッスンを取得
 		Lesson lesson = lessonDao.findByLessonId(lessonId);
+		// 各フィールドを更新
 		lesson.setLessonName(lessonName);
 		lesson.setLessonDetail(lessonDetail);
 		lesson.setStartDate(startDate);
@@ -67,7 +70,7 @@ public class AdminLessonService {
 		lesson.setFinishTime(finishTime);
 		lesson.setLessonFee(lessonFee);
 		lesson.setRegisterDate(registerDate);
-
+		// 新しい画像がある場合は上書き保存
 		if (imageFile != null && !imageFile.isEmpty()) {
 			try {
 				String imageName = saveImage(imageFile);
@@ -82,14 +85,14 @@ public class AdminLessonService {
 		lessonDao.save(lesson);
 		return true;
 	}
-
+	// レッスン詳細取得
 	public Lesson lessonEditCheck(Long lessonId) {
 		if (lessonId == null) {
 			return null;
 		}
 		return lessonDao.findByLessonId(lessonId);
 	}
-
+	// レッスン削除処理（画像含む）
 	@Transactional
 	public boolean deleteLesson(Long lessonId) {
 		if (lessonId == null) {
@@ -101,7 +104,7 @@ public class AdminLessonService {
 			return false;
 		}
 
-		// 先尝试删除图片文件
+		 // 関連画像ファイルの削除処理
 		String imageName = lesson.getImageName();
 		if (imageName != null && !imageName.isEmpty()) {
 			Path imagePath = Paths.get("images", imageName);
@@ -111,11 +114,12 @@ public class AdminLessonService {
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
-				return false; // 如果图片删除失败，整个删除操作失败
+				 // 画像削除失敗 → 処理中断
+				return false; 
 			}
 		}
 
-		// 图片删除成功后，再删除数据库记录
+		 // 画像削除成功後にDBレコードを削除
 		try {
 			lessonDao.deleteByLessonId(lessonId);
 			return true;
@@ -124,20 +128,25 @@ public class AdminLessonService {
 			return false;
 		}
 	}
-
+	// アップロードされた画像ファイルを保存し、保存名を返す
 	private String saveImage(MultipartFile file) throws IOException {
 		if (file != null && !file.isEmpty()) {
+			// 現在時刻 + 元ファイル名でユニークな名前を生成
 			String imageName = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + "-"
 					+ file.getOriginalFilename();
+			 // 保存先パスを作成
 			Path uploadPath = Paths.get("images");
 
 			Files.createDirectories(uploadPath);
-
+			// ファイルをコピーして保存
 			Path filePath = uploadPath.resolve(imageName);
 			Files.copy(file.getInputStream(), filePath);
 
 			return imageName;
 		}
 		return null;
+	}
+	public List<Lesson> searchLessonsByName(Long adminId, String keyword) {
+	    return lessonDao.findByAdminIdAndLessonNameContaining(adminId, keyword);
 	}
 }
