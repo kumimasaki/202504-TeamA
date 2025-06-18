@@ -67,7 +67,14 @@
 						<td>
 							<input type="text" name="lessonFee" id="lessonFee" required oninput="formatNumber(this)" />
 
-					
+							<script>
+							function formatNumber(el) {
+							    let value = el.value.replace(/,/g, ''); 
+							    if (!isNaN(value) && value !== '') {
+							        el.value = Number(value).toLocaleString(); 
+							    }
+							}
+							</script>
 						</td>
 					</tr>
 					
