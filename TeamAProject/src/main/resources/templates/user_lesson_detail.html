@@ -2,70 +2,104 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>テンプレート</title>
-    <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>テンプレート</title>
+	<link rel="stylesheet" th:href="@{/css/reset.css}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
-  <header>
-        <div th:if="${loginFlg}">
-             <h1><img src="/img/logo.png"></h1>
-             <p id="mypage"><a href="/lesson/mypage">マイページ</a></p>
-             <p id="user_register_6" style="color: white;" th:text="${userName}"></p>   
-        </div>
-         <div th:if="${!loginFlg}">
-             <h1><img src="/img/logo.png"></h1>
-             <p id="mypage"><a href="/lesson/mypage">マイページ</a></p>   
-        </div>
-    </header>
-    <article>
-        <h2 th:text="${lesson.lessonName}">講座名</h2>
-        <div class="lesson_details">
-			<img th:src="@{/images/{filename}(filename=${lesson.imageName})}" alt="講座画像" 
-			     style="width: 300px; height: 200px; object-fit: cover; display: block;">
-            <table class="lesson_table">
-                <tr>
-                    <th>開催日</th>
-                    <td>
-                        <input type="text" readonly="readonly" th:value="${#temporals.format(lesson.startDate, 'yyyy/MM/dd')}+'('+${#temporals.dayOfWeekName(lesson.startDate)}+')'">
-                    </td>
-                </tr>
-                <tr>
-                    <th>開催時間</th>
-                    <td>
-                        <input type="text" readonly="readonly" th:value="${#temporals.format(lesson.startTime, 'HH:mm')}+'-'+${#temporals.format(lesson.finishTime, 'HH:mm')}">
-                    </td>
-                </tr>
-                <tr>
-                    <th>講座内容</th>
-                    <td>
-                        <textarea name="講座内容" cols="30" rows="5" readonly="readonly" th:text="${lesson.lessonDetail}"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <th>受講料</th>
-                    <td>
-                        <input type="text" readonly="readonly" th:value ="${lesson.lessonFee}">
-                    </td>
-            </table>
-            <div class="change-button">
-                <button id="return_btn" onclick="history.back();" type="button">戻る</button>
-                <form action="/lesson/cart/all" method="post">
-	               <input type="hidden" th:value="${lesson.lessonId}" name="lessonId">
-	                <button id="change_btn">カートに入れる</button>
-                </form>
-            </div>
-            　　　　
-        </div>
-    </article>
-    <footer><small>Copyright &copy; Academy All rights reserved.</small></footer>
+	<header>
+		<div th:if="${loginFlg}">
+			<h1><img src="/img/logo.png"></h1>
+			<p id="mypage"><a href="/lesson/mypage">マイページ</a></p>
+			<p id="user_register_6" style="color: white;" th:text="${userName}"></p>
+		</div>
+		<div th:if="${!loginFlg}">
+			<h1><img src="/img/logo.png"></h1>
+			<p id="mypage"><a href="/lesson/mypage">マイページ</a></p>
+		</div>
+	</header>
+	<article>
+		<h2 th:text="${lesson.lessonName}">講座名</h2>
+		<div class="lesson_details">
+			<img th:src="@{/images/{filename}(filename=${lesson.imageName})}" alt="講座画像"
+				style="width: 300px; height: 200px; object-fit: cover; display: block;">
+			<table class="lesson_table">
+				<tr>
+					<th>開催日</th>
+					<td>
+						<input type="text" readonly="readonly"
+							th:value="${#temporals.format(lesson.startDate, 'yyyy/MM/dd')}+'('+${#temporals.dayOfWeekName(lesson.startDate)}+')'">
+					</td>
+				</tr>
+				<tr>
+					<th>開催時間</th>
+					<td>
+						<input type="text" readonly="readonly"
+							th:value="${#temporals.format(lesson.startTime, 'HH:mm')}+'-'+${#temporals.format(lesson.finishTime, 'HH:mm')}">
+					</td>
+				</tr>
+				<tr>
+					<th>講座内容</th>
+					<td>
+						<textarea name="講座内容" cols="30" rows="5" readonly="readonly"
+							th:text="${lesson.lessonDetail}"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>受講料</th>
+					<td>
+						<input type="text" readonly="readonly" th:value="${lesson.lessonFee}">
+					</td>
+			</table>
+			<div class="change-button">
+				<button id="return_btn" onclick="history.back();" type="button">戻る</button>
+				<form action="/lesson/cart/all" method="post">
+					<input type="hidden" th:value="${lesson.lessonId}" name="lessonId">
+					<button id="change_btn">カートに入れる</button>
+				</form>
+			</div> 　　　　
+		</div>
+		<div class="comments-section">
+			<h3>コメント一覧</h3>
+
+			<div th:if="${comments.empty}" class="no-comments">
+				最初のコメントを投稿してください！
+			</div>
+
+			<div th:each="comment : ${comments}" class="comment">
+				<div class="comment-header">
+					<span class="comment-author" th:text="${comment.user.userName}">ユーザー名</span>
+					<span class="comment-date"
+						th:text="${#temporals.format(comment.createdAt, 'yyyy/MM/dd HH:mm')}">投稿日時</span>
+				</div>
+				<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+					<div class="comment-content" th:text="${comment.content}">コメント内容</div>
+					<form th:if="${loginFlg} and ${comment.user.userId} == ${session.loginUser.userId}"
+						th:action="@{/lesson/comment/delete}" method="post" style="margin-left: 10px;">
+						<input type="hidden" name="commentId" th:value="${comment.commentId}">
+						<input type="hidden" name="lessonId" th:value="${lesson.lessonId}">
+						<button type="submit">削除</button>
+					</form>
+				</div>
+			</div>
+			<div th:if="${loginFlg}" class="comment-form">
+				<h3>コメントを追加</h3>
+				<form action="#" th:action="@{/lesson/comment/add}" method="post">
+					<input type="hidden" th:value="${lesson.lessonId}" name="lessonId">
+					<textarea name="content" placeholder="コメントを入力してください..." rows="3"></textarea>
+					<button type="submit">投稿する</button>
+				</form>
+			</div>
+		</div>
+	</article>
+	<footer><small>Copyright &copy; Academy All rights reserved.</small></footer>
 </body>
 
 </html>
