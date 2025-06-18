@@ -18,6 +18,7 @@
 		<div th:if="${loginFlg}">
 			<h1><img th:src="@{/img/logo.png}" alt="Logo"></h1>
 			<p id="mypage"><a href="/lesson/mypage">マイページ</a></p>
+			<p style="color: white;"><a th:href="@{/lesson/show/cart}">カート一覧</a></p>
 			<p id="user_register_6" style="color: white;" th:text="${userName}"></p>
 		</div>
 		<div th:if="${!loginFlg}">
@@ -40,7 +41,7 @@
 					<h3 th:text="${item.lesson.lessonName}"></h3>
 					<p id="description" th:text="${item.lesson.lessonDetail}"></p>
 				</a>
-				<p id="price" th:text="${item.lesson.lessonFee}+'円（税込み）'"></p>
+				<p id="price" th:text="${item.lesson.lessonDetail + '円（税込み）'}"></p>
 				<p>購入日：[[${#temporals.format(item.transactionHistory.transactionDate, 'yyyy/MM/dd')}]]</p>
 				<form action="/lesson/history/delete" method="post">
 					<input type="hidden" name="itemId" th:value="${item.id}">

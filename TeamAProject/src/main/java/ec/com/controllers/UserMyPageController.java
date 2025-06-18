@@ -1,6 +1,8 @@
 package ec.com.controllers;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,7 +59,18 @@ public class UserMyPageController {
 
 		// 取ってきた購入記録から、レッスンの情報をまとめる
 		List<TransactionItem> itemList = transactionItemRepository.findByTransactionHistory_User(loginUser);
+
+		
+		for (TransactionItem item : itemList) {
+		    if (item.getLesson() != null && item.getLesson().getLessonFee() != null) {
+		        int fee = item.getLesson().getLessonFee();
+		        String formattedFee = NumberFormat.getNumberInstance(Locale.JAPAN).format(fee);
+		        item.getLesson().setLessonDetail(formattedFee); // ✅ 临时塞进 lessonDetail 字段示范（也可以扩展实体）
+		    }
+		}
+
 		model.addAttribute("listSub", itemList);
+
 
 		return "mypage.html";
 	}
