@@ -84,6 +84,7 @@ public class UserLessonDetailController {
 
 		// コメントが存在し、かつ投稿者が現在のユーザーと一致する場合のみ削除
 		if (comment != null && comment.getUser().getUserId().equals(loginUser.getUserId())) {
+			
 			commentDao.delete(comment);
 		}
 

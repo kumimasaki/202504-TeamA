@@ -3,11 +3,14 @@ package ec.com.models.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Lesson {
@@ -24,12 +27,15 @@ public class Lesson {
 	private String imageName;
 	private LocalDateTime registerDate;
 	private Long adminId;
+	@OneToMany(mappedBy = "lesson", cascade = CascadeType.REMOVE)
+	private List<Comment> comments;
+
 	// コンストラクタ
 	public Lesson() {
 	}
 
 	public Lesson(LocalDate startDate, LocalTime startTime, LocalTime finishTime, String lessonName,
-			String lessonDetail, Integer lessonFee, String imageName, LocalDateTime registerDate,Long adminId) {
+			String lessonDetail, Integer lessonFee, String imageName, LocalDateTime registerDate, Long adminId) {
 		this.startDate = startDate;
 		this.startTime = startTime;
 		this.finishTime = finishTime;
@@ -39,9 +45,17 @@ public class Lesson {
 		this.imageName = imageName;
 		this.registerDate = registerDate;
 		this.adminId = adminId;
-		
+
 	}
 	// getter,setter
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 
 	public Long getAdminId() {
 		return adminId;
@@ -123,5 +137,4 @@ public class Lesson {
 		this.registerDate = registerDate;
 	}
 
-	
 }
